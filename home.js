@@ -1,8 +1,5 @@
 
 
-var CANVAS_WIDTH = 700;
-var CANVAS_HEIGHT = 400;
-
 var createContext = function() {
     var canvas = document.getElementById("mainCanvas");
     var ratio = 1;
@@ -13,6 +10,31 @@ var createContext = function() {
     canvas.getContext("2d").setTransform(ratio, 0, 0, ratio, 0, 0);
     return canvas.getContext("2d");
 }
+
+$(document).ready( function() {
+	context = createContext();
+	run();
+});
+
+var run = function() {
+	var bubbles = [ new Bubble(15, 'red'),
+					new Bubble(20, 'green'),
+					new Bubble(25, 'blue'),
+					new Bubble(30, 'black'),
+					new Bubble(35, 'orange'),
+					new Bubble(40, 'purple'),
+					new Bubble(45, 'none')];
+
+
+	setInterval(function() {
+
+		draw_rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, '#FFFFAD', 'black', 3);
+		for(var i = 0; i<bubbles.length; i++) bubbles[i].move();
+		for(var i = 0; i<bubbles.length; i++) bubbles[i].draw();
+
+	}, 3);
+}
+
 
 var draw_rect = function(x, 
 						 y, 
@@ -39,100 +61,17 @@ var draw_circle = function(center_x,
 						   border_width
 ) {
 	context.beginPath();
-	context.arc(center_x, center_y, rad, 0, 2 * Math.PI, false);
+	context.arc(center_x, 
+				center_y, 
+				rad, 
+				0, 
+				2 * Math.PI, 
+				false
+	);
 	context.fillStyle = fill_color;
 	context.fill();
 	context.lineWidth = border_width;
 	context.strokeStyle = border_color;
 	context.stroke();
 }
-
-
-
-
-
-
-
-function Bubble(startx, 
-				starty, 
-				rad, 
-				color, 
-				_outlinecolor, 
-				_outlinesize
-) {
-
-	this.radius = rad;
-	this.fillcolor = color;
-	this.outlinecolor = _outlinecolor;
-	this.outlinesize = _outlinesize;
-
-	this.x = startx + this.radius;
-	this.y = starty + this.radius;
-	this.Vx = 1;
-	this.Vy = 1;
-
-
-	this.topy = function() {return this.y - this.radius;}
-	this.bottomy = function() {return this.y + this.radius;}
-	this.leftx = function() {return this.x - this.radius;}
-	this.rightx = function() {return this.x + this.radius;}
-
-
-
-	this.move = function() { 
-		
-		if(this.leftx() < 0 || this.rightx() > CANVAS_WIDTH)
-			this.Vx *= -1;
-
-		if(this.topy() < 0 || this.bottomy() > CANVAS_HEIGHT) {
-			this.Vy *= -1;
-		}
-			
-
-
-		this.x = this.x + this.Vx; 
-		this.y = this.y + this.Vy; 
-
-	}
-
-	this.draw = function() {
-		draw_circle(this.x, 
-					this.y, 
-					this.radius, 
-					this.fillcolor, 
-					this.outlinecolor, 
-					this.outlinesize
-		);
-	}
-}
-
-
-var run = function() {
-
-	var b1 = new Bubble(10, 100, 30, 'green', 'black', 2);
-	var b2 = new Bubble(50, 300, 30, 'red', 'black', 5);
-	
-
-	setInterval(function() {
-		b1.move();
-		b2.move();
-
-		draw_rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, 'white', 'black', 1);
-		b1.draw();
-		b2.draw();
-
-
-	}, 3);
-
-}
-
-
-$(document).ready(function(){
-
-	context = createContext();
-	run();
-
-});
-
-
 
