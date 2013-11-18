@@ -24,9 +24,9 @@ var draw_rect = function(x, y, width, height, fill_color, border_color, border_w
 	context.stroke();
 }
 
-var draw_circle = function(x, y, rad, fill_color, border_color, border_width) {
+var draw_circle = function(center_x, center_y, rad, fill_color, border_color, border_width) {
 	context.beginPath();
-	context.arc(x, y, rad, 0, 2 * Math.PI, false);
+	context.arc(center_x, center_y, rad, 0, 2 * Math.PI, false);
 	context.fillStyle = fill_color;
 	context.fill();
 	context.lineWidth = border_width;
@@ -35,11 +35,14 @@ var draw_circle = function(x, y, rad, fill_color, border_color, border_width) {
 }
 
 $(document).ready(function(){
+
+	//setup, done after all elements load
 	context = createContext();
 
-	draw_rect(50, 25, 150, 100, 'green', 'black', 2);
 
-	draw_circle(190, 90, 45, 'red', 'black', 3);
+	//tests for the draw_ functions
+	draw_rect(50, 50, 100, 100, 'none', 'black', 2);
+	draw_circle(CANVAS_WIDTH/2, CANVAS_HEIGHT/2, 45, 'red', 'black', 3);
 
 });
 
