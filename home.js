@@ -17,61 +17,23 @@ $(document).ready( function() {
 });
 
 var run = function() {
-	var bubbles = [ new Bubble(15, 'red'),
-					new Bubble(20, 'green'),
-					new Bubble(25, 'blue'),
+	var bubbles = [ new Bubble(10, 'red'),
+					new Bubble(15, 'green'),
+					new Bubble(20, 'blue'),
+					new Bubble(25, 'yellow'),
 					new Bubble(30, 'black'),
 					new Bubble(35, 'orange'),
 					new Bubble(40, 'purple'),
-					new Bubble(45, 'none')];
-
-
+					new Bubble(45, 'white'),
+					new Bubble(50, 'none'),
+	];
+		
 	setInterval(function() {
 
 		draw_rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, '#FFFFAD', 'black', 3);
 		for(var i = 0; i<bubbles.length; i++) bubbles[i].move();
 		for(var i = 0; i<bubbles.length; i++) bubbles[i].draw();
 
-	}, 3);
-}
-
-
-var draw_rect = function(x, 
-						 y, 
-						 width, 
-						 height, 
-						 fill_color, 
-						 border_color, 
-						 border_width
-) {
-	context.beginPath();
-	context.rect(x, y, width, height);
-	context.fillStyle = fill_color;
-	context.fill();
-	context.lineWidth = border_width;
-	context.strokeStyle = border_color;
-	context.stroke();
-}
-
-var draw_circle = function(center_x, 
-						   center_y, 
-						   rad, 
-						   fill_color, 
-						   border_color, 
-						   border_width
-) {
-	context.beginPath();
-	context.arc(center_x, 
-				center_y, 
-				rad, 
-				0, 
-				2 * Math.PI, 
-				false
-	);
-	context.fillStyle = fill_color;
-	context.fill();
-	context.lineWidth = border_width;
-	context.strokeStyle = border_color;
-	context.stroke();
+	}, 8);
 }
 
